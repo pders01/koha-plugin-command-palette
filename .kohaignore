@@ -1,0 +1,10 @@
+.vscode
+node_modules
+package-kpz
+ktd-plugin-tools
+test
+tests
+tools
+src
+.git
+.github
