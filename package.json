@@ -1,0 +1,18 @@
+{
+  "name": "koha-plugin-command-palette",
+  "version": "1.0.0",
+  "description": "This plugin adds a command palette to the Koha staff client. It aims to make navigation easier for power users.",
+  "main": "index.js",
+  "scripts": {
+    "package-kpz:build": "cd package-kpz && cargo build --release && cd ../ && ln -s ./package-kpz/target/release/package-kpz ./p-kpz",
+    "ktd-plugin-tools:build": "cd ktd-plugin-tools && go build && cd ../ && ln -s ./ktd-plugin-tools/ktd-plugin-tools ./kpt",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pders01/koha-plugin-command-palette.git"
+  },
+  "keywords": ["koha-plugin", "command-palette", "koha"],
+  "author": "Paul Derscheid <me@paulderscheid.xyz>",
+  "license": "GPL-3.0"
+}
