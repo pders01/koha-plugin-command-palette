@@ -51,8 +51,7 @@ sub _count_routes {
     my $sth = $dbh->prepare($stmt);
     $sth->execute(@bind);
 
-    my $count_arr = $sth->fetchall_arrayref;
-    my $count     = $count_arr->[0]->[0];
+    my ($count) = $sth->fetchrow_array;
 
     return $count;
 }
