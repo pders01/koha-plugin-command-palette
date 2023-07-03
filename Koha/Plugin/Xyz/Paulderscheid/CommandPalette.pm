@@ -5,8 +5,10 @@ use Modern::Perl;
 use utf8;
 use 5.032;
 use English qw(-no_match_vars);
+use Carp;
 
 use C4::Context;
+use JSON;
 
 ## Required for all plugins
 use base qw(Koha::Plugins::Base);
@@ -80,7 +82,55 @@ sub configure {
 sub install() {
     my ( $self, $args ) = @_;
 
-    return 1;
+    try {
+        my $dbh = C4::Context->dbh;
+
+        my $table_names = {
+            routes => $self->get_qualified_table_name('routes'),
+            index  => $self->get_qualified_table_name('index'),
+        };
+
+        # Read in the schema.sql file
+        local $INPUT_RECORD_SEPARATOR = undef;    # Enable slurp mode
+
+        # We have to go the manual route because $self->bundle_path is undef at this point
+        my $file       = __FILE__;
+        my $bundle_dir = $file;
+        $bundle_dir =~ s/[.]pm$//smx;
+
+        my $bundle_path = $bundle_dir;
+        open my $fh, '<', $bundle_path . '/sql/schema.sql' or croak "Can't open schema.sql: $OS_ERROR";
+        my $sql = <$fh>;
+        close $fh or croak "Can't close schema.sql: $OS_ERROR";
+
+        # Replace placeholder tokens with table names
+        for my $table ( keys %{$table_names} ) {
+            my $ws         = '\s*';                     # Whitespace character class
+            my $ob         = '\{';                      # Opening brace character class
+            my $cb         = '\}';                      # Closing brace character class
+            my $table_name = '\s*' . $table . '\s*';    # Table name wrapped with optional whitespace
+
+            my $pattern = $ob . $ws . $ob . $table_name . $cb . $ws . $cb;
+
+            $sql =~ s/$pattern/$table_names->{$table}/smxg;
+        }
+
+        # Split statements and execute each one
+        my $statements = [ split /;\s*\n/smx, $sql ];
+        for my $statement ( @{$statements} ) {
+            $dbh->do($statement);
+        }
+
+        return 1;
+    }
+    catch {
+        my $error = $_;
+        use Data::Dumper;
+        carp Dumper($error);
+        carp "INSTALL ERROR: $error";
+
+        return 0;
+    };
 }
 
 sub upgrade {
@@ -95,8 +145,15 @@ sub upgrade {
 sub uninstall() {
     my ( $self, $args ) = @_;
 
-    return 1;
+    my $dbh = C4::Context->dbh;
 
+    my @tables = qw(index routes);
+    for my $table (@tables) {
+        my $stmt = 'DROP TABLE IF EXISTS ' . $self->get_qualified_table_name($table);
+        $dbh->do($stmt);
+    }
+
+    return 1;
 }
 
 sub api_routes {
