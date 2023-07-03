@@ -6,7 +6,8 @@
   "scripts": {
     "package-kpz:build": "cd package-kpz && cargo build --release && cd ../ && ln -s ./package-kpz/target/release/package-kpz ./p-kpz",
     "ktd-plugin-tools:build": "cd ktd-plugin-tools && go build && cd ../ && ln -s ./ktd-plugin-tools/ktd-plugin-tools ./kpt",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build":  "./p-kpz -r \"koha-plugin-command-palette\" -p \"Koha/Plugin/Xyz/Paulderscheid/CommandPalette.pm\""
   },
   "repository": {
     "type": "git",
