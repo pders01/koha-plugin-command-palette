@@ -5,12 +5,7 @@ use utf8;
 use 5.032;
 use English qw(-no_match_vars);
 
-use Cache::Memcached::Fast;
-use IO::Compress::Gzip qw(gzip $GzipError);
-use IO::Uncompress::Gunzip qw(gunzip $GunzipError);
 use Mojo::Base 'Mojolicious::Controller';
-use Storable;
-use Readonly;
 use Try::Tiny;
 use SQL::Abstract;
 
@@ -21,10 +16,6 @@ use Koha::Plugin::Xyz::Paulderscheid::CommandPalette::ExtractRoutes qw(extract);
 my $self = Koha::Plugin::Xyz::Paulderscheid::CommandPalette->new;
 
 our $VERSION = '1.0.0';
-
-Readonly my $MAX_ROUTES => 20;
-
-# '/usr/share/koha/intranet/cgi-bin'
 
 sub list {
     my $c = shift->openapi->valid_input or return;
