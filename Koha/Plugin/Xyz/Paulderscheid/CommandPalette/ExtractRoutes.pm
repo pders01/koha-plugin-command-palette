@@ -30,9 +30,9 @@ sub extract {
     my @files;
     find(
         sub {
-            return if !-f;                                                     # Skip anything that's not a file
-            return if !/[.]pl\z/smx;                                           # Skip anything that's not a .pl file
-            return if $File::Find::name =~ m{(^|/)installer|error(/|$)}smx;    # Skip anything that has 'installer' or 'error' in it
+            return if !-f;                                                      # Skip anything that's not a file
+            return if !/[.]pl\z/smx;                                            # Skip anything that's not a .pl file
+            return if $File::Find::name =~ m{(^|/)installer|errors(/|$)}smx;    # Skip anything that has 'installer' or 'error' in it
 
             # Save the file's path, removing the base directory for the route
             ( my $route = $File::Find::name ) =~ s/\Q$dir\E//smx;

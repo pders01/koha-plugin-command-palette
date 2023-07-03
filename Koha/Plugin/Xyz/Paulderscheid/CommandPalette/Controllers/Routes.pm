@@ -34,9 +34,12 @@ sub list {
         my $sth = $dbh->prepare($stmt);
         $sth->execute(@bind);
 
-        my $routes = $sth->fetchall_arrayref;
+        my @routes;
+        while ( my ($route) = $sth->fetchrow_array ) {
+            push @routes, $route;
+        }
 
-        return $c->render( status => 200, openapi => $routes );
+        return $c->render( status => 200, openapi => \@routes );
     }
     catch {
         $c->unhandled_exception($_);
