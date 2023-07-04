@@ -78,6 +78,7 @@ sub _store_in_db {
 
         # Split route into path fragments and insert each fragment into route_index table
         my @parts = split /\//smx, $route;
+        @parts = grep {length} @parts;
         foreach my $part (@parts) {
             ( $stmt, @bind ) = $sql->insert( $self->get_qualified_table_name('index'), { route_id => $route_id, index_term => $part } );
             $sth = $dbh->prepare($stmt);
