@@ -8,7 +8,7 @@
             ],
             "parameters": [
                 {
-                    "name": "query",
+                    "name": "path",
                     "in": "query",
                     "description": "Query string to match routes",
                     "required": false,
@@ -21,7 +21,12 @@
             "responses": {
                 "200": {
                     "description": "List of routes",
-                    "schema": {}
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
                 },
                 "400": {
                     "description": "Bad request",

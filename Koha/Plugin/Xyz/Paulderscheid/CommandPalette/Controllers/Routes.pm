@@ -21,29 +21,61 @@ sub list {
     my $c = shift->openapi->valid_input or return;
 
     return try {
-        my $query = $c->param('query') // q{};
-        my $dbh   = C4::Context->dbh;
-        my $sql   = SQL::Abstract->new;
+        my $path = $c->param('path') // q{};
+        my $dbh  = C4::Context->dbh;
+        my $sql  = SQL::Abstract->new;
 
         my $has_routes = _count_routes() > 0;
         if ( !$has_routes ) {
             extract('/usr/share/koha/intranet/cgi-bin');
         }
 
-        my ( $stmt, @bind ) = $sql->select( $self->get_qualified_table_name('routes'), 'route' );
-        my $sth = $dbh->prepare($stmt);
-        $sth->execute(@bind);
+        if ($path) {
+            my @search_terms = split /[\/\s]+/smx, $path;
 
-        my @routes;
-        while ( my ($route) = $sth->fetchrow_array ) {
-            push @routes, $route;
+            my %route_id_counts;
+            for my $search_term (@search_terms) {
+                my ( $stmt, @bind ) = $sql->select( $self->get_qualified_table_name('index'), 'route_id', { index_term => { -like => q{%} . $search_term . q{%} } } );
+                my $sth = $dbh->prepare($stmt);
+                $sth->execute(@bind);
+
+                while ( my ($route_id) = $sth->fetchrow_array ) {
+                    $route_id_counts{$route_id}++;
+                }
+            }
+
+            # Keep only the route_ids that were found for each search term
+            my @final_route_ids = grep { $route_id_counts{$_} == scalar @search_terms } keys %route_id_counts;
+
+            my @routes;
+            for my $route_id (@final_route_ids) {
+                my ( $stmt, @bind ) = $sql->select( $self->get_qualified_table_name('routes'), 'route', { id => $route_id }, { -asc => 'route' } );
+                my $sth = $dbh->prepare($stmt);
+                $sth->execute(@bind);
+
+                while ( my ($route) = $sth->fetchrow_array ) {
+                    push @routes, $route;
+                }
+            }
+
+            return $c->render( status => 200, openapi => \@routes );
         }
+        else {
+            my ( $stmt, @bind ) = $sql->select( $self->get_qualified_table_name('routes'), 'route', undef, { -asc => 'route' } );
+            my $sth = $dbh->prepare($stmt);
+            $sth->execute(@bind);
 
-        return $c->render( status => 200, openapi => \@routes );
+            my @routes;
+            while ( my ($route) = $sth->fetchrow_array ) {
+                push @routes, $route;
+            }
+
+            return $c->render( status => 200, openapi => \@routes );
+        }
+        catch {
+            $c->unhandled_exception($_);
+        };
     }
-    catch {
-        $c->unhandled_exception($_);
-    };
 }
 
 sub _count_routes {
