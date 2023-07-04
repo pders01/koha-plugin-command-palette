@@ -49,14 +49,18 @@ sub new {
 sub intranet_head {
     my ($self) = @_;
 
-    return q{};
+    return q{<script src="/api/v1/contrib/commandpalette/static/dist/main.js"></script>};
 
 }
 
 sub intranet_js {
     my ($self) = @_;
 
-    return q{};
+    return <<~"SCRIPT";
+        <script>
+            document.body.insertAdjacentHTML('beforeend', '<koha-command-palette></koha-command-palette>');
+        </script>
+    SCRIPT
 
 }
 
@@ -82,7 +86,7 @@ sub configure {
 sub install() {
     my ( $self, $args ) = @_;
 
-    try {
+    return try {
         my $dbh = C4::Context->dbh;
 
         my $table_names = {
