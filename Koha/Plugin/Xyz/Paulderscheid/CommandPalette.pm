@@ -15,18 +15,21 @@ use base qw(Koha::Plugins::Base);
 
 ## Here we set our plugin version
 our $VERSION         = '1.0.0';
-our $MINIMUM_VERSION = '18.05';
+our $MINIMUM_VERSION = '21.05';
 
 ## Here is our metadata, some keys are required, some are optional
 our $METADATA = {
-    name            => 'command-palette',
+    name            => 'Command Palette',
     author          => 'Paul Derscheid <me@paulderscheid.xyz>',
     date_authored   => '2023-06-29',
     date_updated    => '2023-06-29',
     minimum_version => $MINIMUM_VERSION,
     maximum_version => undef,
     version         => $VERSION,
-    description     => 'This plugin adds a command palette to the Koha staff client. It aims to make navigation easier for power users.'
+    description     => <<~'EOL',
+        This plugin adds a command palette to the Koha staff client.
+        It aims to make navigation easier for power users.
+    EOL
 };
 
 ## This is the minimum code required for a plugin's 'new' method
