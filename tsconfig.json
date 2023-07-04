@@ -7,7 +7,7 @@
       "declarationMap": true,
       "sourceMap": true,
       "inlineSources": true,
-      "outDir": "./Koha/Plugin/Com/LMSCloud/EventManagement/dist/",
+      "outDir": "./Koha/Plugin/Xyz/Paulderscheid/CommandPalette/dist/",
       "rootDir": "./src",
       "strict": true,
       "noUnusedLocals": true,
