@@ -36,4 +36,15 @@ inc/
 
 experimental/
 
+# Output bundle
 *.kpz
+
+# Logs
+script.log
+
+# Lock files
+pnpm-lock.yaml
+
+# JS
+node_modules/
+
