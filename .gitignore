@@ -48,3 +48,5 @@ pnpm-lock.yaml
 # JS
 node_modules/
 
+# Carton
+cpanfile
