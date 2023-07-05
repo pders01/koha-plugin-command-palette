@@ -70,4 +70,6 @@ sub collect_paths {
     return @paths;
 }
 
+__PACKAGE__->meta->make_immutable;
+
 1;
