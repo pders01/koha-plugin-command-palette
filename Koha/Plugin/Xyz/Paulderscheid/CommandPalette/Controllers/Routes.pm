@@ -12,7 +12,7 @@ use SQL::Abstract;
 use C4::Context;
 use Koha::Plugin::Xyz::Paulderscheid::CommandPalette;
 use Koha::Plugin::Xyz::Paulderscheid::CommandPalette::lib::Trie;
-use Koha::Plugin::Xyz::Paulderscheid::CommandPalette::ExtractRoutes qw(extract);
+use Koha::Plugin::Xyz::Paulderscheid::CommandPalette::lib::ExtractRoutes qw(extract);
 
 my $self = Koha::Plugin::Xyz::Paulderscheid::CommandPalette->new;
 
