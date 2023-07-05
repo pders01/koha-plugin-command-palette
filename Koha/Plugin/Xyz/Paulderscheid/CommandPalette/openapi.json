@@ -103,6 +103,11 @@
                         }
                     }
                 }
+            },
+            "x-koha-authorization": {
+                "permissions": {
+                    "catalogue": "1"
+                }
             }
         }
     }
