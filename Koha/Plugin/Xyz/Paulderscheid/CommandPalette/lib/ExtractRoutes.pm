@@ -1,4 +1,4 @@
-package Koha::Plugin::Xyz::Paulderscheid::CommandPalette::ExtractRoutes;
+package Koha::Plugin::Xyz::Paulderscheid::CommandPalette::lib::ExtractRoutes;
 
 use Modern::Perl;
 use utf8;
