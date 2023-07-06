@@ -24,6 +24,11 @@ sub list {
     return try {
         my $path = $c->param('path') // q{};
 
+        my $has_routes = _count_routes() > 0;
+        if ( !$has_routes ) {
+            extract('/usr/share/koha/intranet/cgi-bin');
+        }
+
         my $dbh = C4::Context->dbh;
         my $sql = SQL::Abstract->new;
 
@@ -61,6 +66,19 @@ sub list {
     catch {
         $c->unhandled_exception($_);
     };
+}
+
+sub _count_routes {
+    my $dbh = C4::Context->dbh;
+    my $sql = SQL::Abstract->new;
+
+    my ( $stmt, @bind ) = $sql->select( $self->get_qualified_table_name('routes'), 'COUNT(id)' );
+    my $sth = $dbh->prepare($stmt);
+    $sth->execute(@bind);
+
+    my ($count) = $sth->fetchrow_array;
+
+    return $count;
 }
 
 1;

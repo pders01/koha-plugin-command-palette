@@ -92,10 +92,7 @@ sub install() {
     return try {
         my $dbh = C4::Context->dbh;
 
-        my $table_names = {
-            routes => $self->get_qualified_table_name('routes'),
-            index  => $self->get_qualified_table_name('index'),
-        };
+        my $table_names = { routes => $self->get_qualified_table_name('routes'), };
 
         # Read in the schema.sql file
         local $INPUT_RECORD_SEPARATOR = undef;    # Enable slurp mode
@@ -154,7 +151,7 @@ sub uninstall() {
 
     my $dbh = C4::Context->dbh;
 
-    my @tables = qw(index routes);
+    my @tables = qw(routes);
     for my $table (@tables) {
         my $stmt = 'DROP TABLE IF EXISTS ' . $self->get_qualified_table_name($table);
         $dbh->do($stmt);

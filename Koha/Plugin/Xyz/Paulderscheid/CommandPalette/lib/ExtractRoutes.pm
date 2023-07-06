@@ -62,28 +62,12 @@ sub _store_in_db {
     $sth = $dbh->prepare($stmt);
     $sth->execute(@bind) or _croak_with_error { $dbh->errstr };
 
-    ( $stmt, @bind ) = $sql->delete( $self->get_qualified_table_name('index') );
-    $sth = $dbh->prepare($stmt);
-    $sth->execute(@bind) or _croak_with_error { $dbh->errstr };
-
     foreach my $route ( @{$files} ) {
 
         # Insert route into routes table
         ( $stmt, @bind ) = $sql->insert( $self->get_qualified_table_name('routes'), { route => $route } );
         $sth = $dbh->prepare($stmt);
         $sth->execute(@bind) or _croak_with_error { $dbh->errstr };
-
-        # Get the ID of the inserted route
-        my $route_id = $dbh->last_insert_id( undef, undef, 'routes', 'id' );
-
-        # Split route into path fragments and insert each fragment into route_index table
-        my @parts = split /\//smx, $route;
-        @parts = grep {length} @parts;
-        foreach my $part (@parts) {
-            ( $stmt, @bind ) = $sql->insert( $self->get_qualified_table_name('index'), { route_id => $route_id, index_term => $part } );
-            $sth = $dbh->prepare($stmt);
-            $sth->execute(@bind) or _croak_with_error { $dbh->errstr };
-        }
     }
 
     return "Route information has been stored in the database\n";
