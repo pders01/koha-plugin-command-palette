@@ -47,7 +47,9 @@ export default class KohaCommandPalette extends LitElement {
         if (target.id === "palette-input") {
             return;
         }
-        if (e.key.toLowerCase() === "p" && e.ctrlKey && e.shiftKey) {
+
+        const isCmdOrCtrlPressed = e.ctrlKey || e.metaKey;
+        if (isCmdOrCtrlPressed && e.key === "/") {
             e.preventDefault();
             this.palette.showModal();
             this.paletteInput.focus();
