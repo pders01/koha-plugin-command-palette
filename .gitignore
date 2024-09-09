@@ -1,0 +1,7 @@
+local/
+Koha/Plugin/
+templates/Koha/Plugin/
+
+koha-plugin-*.kpz
+
+TODO.md
