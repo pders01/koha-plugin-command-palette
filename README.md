@@ -54,6 +54,11 @@ Then you can just run `$ just` for an overview of commands in the project root.
 
 You can of course just run the scripts without just. Take a look at the `justfile`.
 
+Before you start, you should copy the env file from templates/env to .env in the project root and customize it (I will soon patch `just init` to prompt for this).
+```console
+$ cp templates/env .env
+```
+
 
 ## License
 
