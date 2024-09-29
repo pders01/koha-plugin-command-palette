@@ -83,7 +83,7 @@ Contributions are welcome! Just PR but please use `perltidy` and `perlimports` w
 
 ## Demo
 
-I will insert something here soon!
+- For an example project, check out [koha-plugin-pomodoro](https://github.com/pders01/koha-plugin-pomodoro)
 
 
 ## Authors
