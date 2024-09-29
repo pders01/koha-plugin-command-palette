@@ -1,16 +1,23 @@
-# Introduction
+# koha-plugin
 
-The Kitchen Sink plugin for Koha is meant to be an exhaustive example of all the features a Koha plugin can posses.
+This project is my attempt at doing the boring stuff less often. I hope it's useful to you!
 
-If you find any plugin hooks are missing, please let us know by filing a GitHub Issue!
+Disclaimer: this project was stuck in my head for over a year, but at the time of writing it's 2 days old.
+It's not a full-featured solution yet and definetly contains bugs (some I am already aware of).
 
-# Downloading
 
-From the [release page](https://github.com/bywatersolutions/koha-plugin-kitchen-sink/releases) you can download the relevant *.kpz file
+## Badges
 
-# Installing
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
 
-Koha's Plugin System allows for you to add additional tools and reports to Koha that are specific to your library. Plugins are installed by uploading KPZ ( Koha Plugin Zip ) packages. A KPZ file is just a zip file containing the perl files, template files, and any other files necessary to make the plugin work.
+
+## Installation
+
+### Plugins within Koha
+
+Koha's Plugin System allows for you to add additional tools and reports to Koha that are specific to your library.
+Plugins are installed by uploading KPZ ( Koha Plugin Zip ) packages.
+A KPZ file is just a zip file containing the perl files, template files, and any other files necessary to make the plugin work.
 
 The plugin system needs to be turned on by a system administrator.
 
@@ -21,3 +28,56 @@ To set up the Koha plugin system you must first make some changes to your instal
 * Restart your webserver
 
 Once set up is complete you will need to alter your UseKohaPlugins system preference. On the Tools page you will see the Tools Plugins and on the Reports page you will see the Reports Plugins.
+
+### This project
+
+I wanted to try out new features here, so you'll need `perl ^5.038`. If you're using an earlier version, I'd recommend checking out [perlbrew](https://perlbrew.pl/). 
+
+There are some options, depending on what you prefer:
+- Via [GitHub (pders01/koha-plugin)](https://github.com/pders01/koha-plugin)
+    - Use the template button and create a new repository from the template.
+    - Use the GitHub CLI: `$ gh repo create -p pders01/koha-plugin`.
+- Just via git
+    - For example: `$ git clone https://github.com/pders01/koha-plugin.git koha-plugin-<name>`.
+        - Then `$ cd koha-plugin-<name>` and `$ rm -rf .git`.
+        - Then `$ git init` and `$ git remote add origin https://<host>/<username>/koha-plugin-<name>.git`.
+
+The next thing you'll need is [Carton](https://metacpan.org/pod/Carton). You can install it with `$ cpanm carton` for example.
+Then install the dependencies within the project root with `$ carton install`.
+
+The last thing you'll need (optional but recommended) is [just](https://just.systems/).
+Then you can just run `$ just` for an overview of commands in the project root.
+
+You can of course just run the scripts without just. Take a look at the `justfile`.
+
+
+## License
+
+[GPL v3](https://github.com/pders01/koha-plugin?tab=GPL-3.0-1-ov-file#readme)
+
+
+## Support
+
+For support, ping me on [Koha's Mattermost](https://chat.koha-community.org) __@paulderscheid__.
+
+
+## Acknowledgements
+
+ - [dev-koha-plugin-kitchen-sink](https://github.com/bywatersolutions/dev-koha-plugin-kitchen-sink) by [byWater Solutions](https://bywatersolutions.com) and [friends](https://chat.koha-community.org)
+ - [Koha Community](https://koha-community.org)
+
+
+## Contributing
+
+Contributions are welcome! Just PR but please use `perltidy` and `perlimports` with the shipped configuration files.
+
+
+## Demo
+
+I will insert something here soon!
+
+
+## Authors
+
+- [@pders01](https://www.github.com/pders01)
+
