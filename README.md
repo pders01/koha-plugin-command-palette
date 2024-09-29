@@ -38,12 +38,12 @@ There are some options, depending on what you prefer:
     - Use the template button and create a new repository from the template.
     - Use the GitHub CLI: `$ gh repo create -p pders01/koha-plugin`.
 - Just via git
-```bash
-git clone https://github.com/pders01/koha-plugin.git "koha-plugin-$NAME"
-cd "koha-plugin-$NAME"
-rm -rf .git
-git init
-git remote add origin https://$HOST/$USER/koha-plugin-$NAME.git
+```console
+$ git clone https://github.com/pders01/koha-plugin.git "koha-plugin-$NAME"
+$ cd "koha-plugin-$NAME"
+$ rm -rf .git
+$ git init
+$ git remote add origin https://$HOST/$USER/koha-plugin-$NAME.git
 ```
 
 The next thing you'll need is [Carton](https://metacpan.org/pod/Carton). You can install it with `$ cpanm carton` for example.
