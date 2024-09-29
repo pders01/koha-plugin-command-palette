@@ -3,6 +3,7 @@ Koha/Plugin/
 templates/Koha/Plugin/
 
 .env
+.DS_Store
 koha-plugin-*.kpz
 
 TODO.md
