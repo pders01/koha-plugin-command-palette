@@ -28,8 +28,7 @@ spec_body=$(cat "$staticapi_template_file")
 json_fragments=()
 while IFS= read -r -d '' file; do
   if [ -f "$file" ]; then
-    path_name=$(echo "$file" | sed "s|^$PLUGIN_PATH||")
-    path_name="/$path_name"
+    path_name="${file//$PLUGIN_PATH/}"
     echo "Creating $path_name"
 
     endpoint_spec=$(echo "{\"$path_name\": $spec_body}" | jq .)
