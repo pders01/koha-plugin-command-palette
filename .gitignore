@@ -2,6 +2,7 @@ local/
 Koha/Plugin/
 templates/Koha/Plugin/
 
+.env
 koha-plugin-*.kpz
 
 TODO.md
