@@ -20,6 +20,10 @@ init:
 add component:
   carton exec ./scripts/add.pl {{component}}
 
+# Increments the version in your local .env, base module and package.json if present. This also updates date_updated!
+increment type='patch' times='1':
+  ./scripts/increment.pl --version "${PLUGIN_VERSION}" --name "${PLUGIN_NAME}" --type {{type}} --times {{times}}
+
 # Creates a kpz file by zipping the current state of the `Koha` directory.
 package:
   ./scripts/package.sh "${PLUGIN_NAME}" "${PLUGIN_RELEASE_FILENAME}" "${PLUGIN_VERSION}"
