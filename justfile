@@ -22,7 +22,7 @@ add component:
 
 # Creates a kpz file by zipping the current state of the `Koha` directory.
 package:
-  ./scripts/package.sh "${PLUGIN_NAME}" "${PLUGIN_RELEASE_FILENAME}"
+  ./scripts/package.sh "${PLUGIN_NAME}" "${PLUGIN_RELEASE_FILENAME}" "${PLUGIN_VERSION}"
 
 # Updates the staticapi.json file within the plugin to expose all files within the `static` directory. 
 staticapi:
