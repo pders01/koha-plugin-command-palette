@@ -16,6 +16,8 @@ use Readonly     qw( Readonly );
 
 use Local::Util qw( l );
 
+our $VERSION = '0.0.1';
+
 Readonly my $CONST => {
     INDENTATION              => 4,
     INDEX_MAJOR              => 0,
