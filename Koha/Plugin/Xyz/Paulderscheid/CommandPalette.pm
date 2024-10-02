@@ -52,7 +52,7 @@ sub new {
 sub intranet_head {
     my ($self) = @_;
 
-    return q{<script src="/api/v1/contrib/commandpalette/static/dist/main.js"></script>};
+    return q{<script src="/api/v1/contrib/commandpalette/static/assets/main.umd.js"></script>};
 
 }
 

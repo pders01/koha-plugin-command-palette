@@ -2,7 +2,6 @@ import { LitElement, PropertyValueMap, html } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { map } from "lit/directives/map.js";
 import { debounce } from "../lib/utilities";
-import { tailwindStyles } from "../tailwind.lit";
 
 @customElement("koha-command-palette")
 export default class KohaCommandPalette extends LitElement {
@@ -19,8 +18,6 @@ export default class KohaCommandPalette extends LitElement {
     private boundHandleKeyDown = this.handleKeyDown.bind(this);
 
     private boundHandleKeyDownPalette = this.handleKeyDownPalette.bind(this);
-
-    static override styles = [tailwindStyles];
 
     private getRoutes(query?: string) {
         const response = fetch(
@@ -111,7 +108,7 @@ export default class KohaCommandPalette extends LitElement {
         );
     }
 
-    protected createRenderRoot() {
+    protected override createRenderRoot() {
         return this;
     }
 
