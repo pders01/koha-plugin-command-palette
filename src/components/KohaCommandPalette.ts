@@ -9,9 +9,11 @@ export default class KohaCommandPalette extends LitElement {
 
     @state() routes: string[] = [];
 
-    @query("#palette") palette!: HTMLDialogElement;
+    @query("#palette") palette!: HTMLElement;
 
     @query("#palette-input") paletteInput!: HTMLInputElement;
+
+    private modalInstance: any;
 
     private debouncedHandleInput: (e: Event) => void;
 
@@ -48,7 +50,7 @@ export default class KohaCommandPalette extends LitElement {
         const isCmdOrCtrlPressed = e.ctrlKey || e.metaKey;
         if (isCmdOrCtrlPressed && e.key === "/") {
             e.preventDefault();
-            this.palette.showModal();
+            this.modalInstance?.show();
             this.paletteInput.focus();
         }
     }
@@ -102,6 +104,10 @@ export default class KohaCommandPalette extends LitElement {
         _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
     ): void {
         super.firstUpdated(_changedProperties);
+        this.modalInstance = new (window as any).bootstrap.Modal(this.palette, {
+            backdrop: 'static',
+            keyboard: true,
+        });
         this.palette.addEventListener(
             "keydown",
             this.boundHandleKeyDownPalette
@@ -114,11 +120,11 @@ export default class KohaCommandPalette extends LitElement {
 
     override render() {
         return html`
-            <div id="palette" class="modal fade" tabindex="-1" aria-labelledby="paletteLabel" aria-hidden="true">
+            <div id="palette" class="modal fade" tabindex="-1" aria-labelledby="palette-label" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <form class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="paletteLabel">Command Palette</h5>
+                            <h5 class="modal-title" id="palette-label">Command Palette</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -142,7 +148,7 @@ export default class KohaCommandPalette extends LitElement {
                                     ? map(
                                           this.routes,
                                           (route) => html`
-                                              <li class="list-group-item my-2">
+                                              <li class="list-group-item">
                                                   <a
                                                       href="/cgi-bin/koha${route}"
                                                       class="link"
@@ -151,7 +157,7 @@ export default class KohaCommandPalette extends LitElement {
                                               </li>
                                           `
                                       )
-                                    : html`<li class="list-group-item my-2 bg-light">
+                                    : html`<li class="list-group-item bg-light">
                                           No results
                                       </li>`}
                             </ul>
