@@ -32,3 +32,7 @@ package:
 staticapi:
   ./scripts/staticapi.sh "${PLUGIN_NAME}" "${PLUGIN_STATIC_DIR_NAME}"
 
+# Attempts to update the koha-plugin repository itself. If you've updated core components, you'll have to resolve the conflicts yourself, though.
+update-meta:
+  ./scripts/update-meta.sh
+
