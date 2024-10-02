@@ -1,17 +1,10 @@
 {
-  "name": "koha-plugin-command-palette",
-  "version": "1.0.0",
   "description": "This plugin adds a command palette to the Koha staff client. It aims to make navigation easier for power users.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "build": "vite build",
-    "dev": "vite dev"
-  },
+  "version": "1.0.1",
+  "license": "GPL-3.0",
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pders01/koha-plugin-command-palette.git"
+    "url": "git+https://github.com/pders01/koha-plugin-command-palette.git",
+    "type": "git"
   },
   "keywords": [
     "koha-plugin",
@@ -19,14 +12,21 @@
     "koha"
   ],
   "author": "Paul Derscheid <me@paulderscheid.xyz>",
-  "license": "GPL-3.0",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite dev",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "main": "index.js",
   "devDependencies": {
+    "vite": "^5.4.8",
     "prettier-plugin-organize-imports": "^3.2.2",
     "tslib": "^2.6.0",
-    "typescript": "^5.6.2",
-    "vite": "^5.4.8"
+    "typescript": "^5.6.2"
   },
   "dependencies": {
     "lit": "^3.2.0"
-  }
+  },
+  "name": "koha-plugin-command-palette"
 }

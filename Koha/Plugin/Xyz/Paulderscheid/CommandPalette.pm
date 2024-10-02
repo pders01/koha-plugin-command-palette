@@ -15,7 +15,7 @@ use JSON qw( decode_json );
 use base qw(Koha::Plugins::Base);
 
 ## Here we set our plugin version
-our $VERSION         = '1.0.0';
+our $VERSION         = '1.0.1';
 our $MINIMUM_VERSION = '21.05';
 
 ## Here is our metadata, some keys are required, some are optional
@@ -23,7 +23,7 @@ our $METADATA = {
     name            => 'Command Palette',
     author          => 'Paul Derscheid <me@paulderscheid.xyz>',
     date_authored   => '2023-06-29',
-    date_updated    => '2023-06-29',
+    date_updated    => '2024-10-03',
     minimum_version => $MINIMUM_VERSION,
     maximum_version => undef,
     version         => $VERSION,
