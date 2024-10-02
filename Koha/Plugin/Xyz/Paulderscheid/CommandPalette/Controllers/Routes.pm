@@ -4,14 +4,18 @@ use strict;
 use warnings;
 use utf8;
 use English qw(-no_match_vars);
-use lib q{../lib};
 
 use Mojo::Base qw(Mojolicious::Controller);
 
 use C4::Context;
 
-use SQL::Abstract ();
-use Try::Tiny     qw( catch try );
+use Cwd            qw( abs_path );
+use File::Basename qw( dirname );
+use File::Spec     ();
+use SQL::Abstract  ();
+use Try::Tiny      qw( catch try );
+
+use lib File::Spec->catdir( dirname( abs_path(__FILE__) ), q{..}, 'lib' );
 
 use Trie;
 use Local::ExtractRoutes qw(extract);
@@ -49,7 +53,7 @@ sub list {
         if ($path) {
 
             # 2. Create and populate the Trie with these routes
-            my $trie = Koha::Plugin::Xyz::Paulderscheid::CommandPalette::lib::Trie->new();
+            my $trie = Trie->new();
             foreach my $route (@routes) {
                 $trie->insert($route);
             }
