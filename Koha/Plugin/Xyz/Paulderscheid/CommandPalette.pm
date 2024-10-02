@@ -9,7 +9,7 @@ use English qw(-no_match_vars);
 use C4::Context ();
 
 use Carp qw( carp croak );
-use JSON ();
+use JSON qw( decode_json );
 
 ## Required for all plugins
 use base qw(Koha::Plugins::Base);
