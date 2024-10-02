@@ -1,4 +1,4 @@
-import { LitElement, PropertyValueMap, html } from "lit";
+import { LitElement, PropertyValueMap, css, html } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { map } from "lit/directives/map.js";
 import { debounce } from "../lib/utilities";
@@ -12,6 +12,12 @@ export default class KohaCommandPalette extends LitElement {
     @query("#palette") palette!: HTMLElement;
 
     @query("#palette-input") paletteInput!: HTMLInputElement;
+
+    static override styles = css`
+        #palette .modal-header {
+            background-image: linear-gradient(45deg, #408540, #DCEFD0);
+        }
+    `;
 
     private modalInstance: any;
 
@@ -123,7 +129,7 @@ export default class KohaCommandPalette extends LitElement {
             <div id="palette" class="modal fade" tabindex="-1" aria-labelledby="palette-label" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <form class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header text-light">
                             <h5 class="modal-title" id="palette-label">Command Palette</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
