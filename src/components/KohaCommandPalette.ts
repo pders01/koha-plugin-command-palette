@@ -111,45 +111,57 @@ export default class KohaCommandPalette extends LitElement {
         );
     }
 
+    protected createRenderRoot() {
+        return this;
+    }
+
     override render() {
         return html`
-            <dialog id="palette" class="modal">
-                <form class="modal-box w-2/3 max-w-5xl">
-                    <input
-                        id="palette-input"
-                        class="input-bordered input input-lg mb-4 w-full"
-                        type="text"
-                        placeholder="Start typing..."
-                        aria-label="Command Palette"
-                        @input=${this.debouncedHandleInput}
-                        @focus=${this.handleFocusInput}
-                        @blur=${this.handleBlurInput}
-                    />
-                    <!-- kbd inside the input, vanishes when focused -->
-                    <kbd class="kbd absolute right-8 top-6 m-2">/</kbd>
-                    <ul
-                        id="palette-items"
-                        class="max-h-[24rem] overflow-y-scroll rounded-xl"
-                    >
-                        ${this.routes.length
-                            ? map(
-                                  this.routes,
-                                  (route) => html`
-                                      <li class="my-2 rounded-xl p-4">
-                                          <a
-                                              href="/cgi-bin/koha${route}"
-                                              class="link"
-                                              >${route}</a
-                                          >
-                                      </li>
-                                  `
-                              )
-                            : html`<li class="my-2 rounded-xl bg-base-200 p-2">
-                                  No results
-                              </li>`}
-                    </ul>
-                </form>
-            </dialog>
+            <div id="palette" class="modal fade" tabindex="-1" aria-labelledby="paletteLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <form class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="paletteLabel">Command Palette</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input
+                                id="palette-input"
+                                class="form-control form-control-lg mb-4"
+                                type="text"
+                                placeholder="Start typing..."
+                                aria-label="Command Palette"
+                                @input=${this.debouncedHandleInput}
+                                @focus=${this.handleFocusInput}
+                                @blur=${this.handleBlurInput}
+                            />
+                            <kbd class="position-absolute top-0 end-0 m-2">/</kbd>
+                            <ul
+                                id="palette-items"
+                                class="list-group overflow-auto"
+                                style="max-height: 24rem;"
+                            >
+                                ${this.routes.length
+                                    ? map(
+                                          this.routes,
+                                          (route) => html`
+                                              <li class="list-group-item my-2">
+                                                  <a
+                                                      href="/cgi-bin/koha${route}"
+                                                      class="link"
+                                                      >${route}</a
+                                                  >
+                                              </li>
+                                          `
+                                      )
+                                    : html`<li class="list-group-item my-2 bg-light">
+                                          No results
+                                      </li>`}
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
         `;
     }
 }
