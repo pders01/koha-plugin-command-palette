@@ -2,7 +2,7 @@
 
 This project aims to make navigation easier. Although it's already at ^1, it's actually still a prototype (I didn't honor semver at the time).
 
-Just install and hit `Cmd/Ctrl + /`! Ideas and contributions welcome.
+Just install and hit `Cmd/Ctrl + /`! Ideas and contributions welcome. I actually wanted `Cmd+k` but Firefox uses `Ctrl+k` for some bs 🙄 (might still switch back, though).
 
 
 ## Badges
