@@ -1,28 +1,27 @@
-package Koha::Plugin::Xyz::Paulderscheid::CommandPalette::lib::ExtractRoutes;
+package Local::ExtractRoutes;
 
-use Modern::Perl;
+use strict;
+use warnings;
 use utf8;
-use 5.032;
 use English qw(-no_match_vars);
-use Carp;
 
-use Cache::Memcached::Fast;
-use File::Find;
-use IO::Compress::Gzip qw(gzip $GzipError);
-use IO::Uncompress::Gunzip qw(gunzip $GunzipError);
-use JSON;
-use Storable;
-use SQL::Abstract;
+use C4::Context ();
 
-use C4::Context;
+use Cache::Memcached::Fast ();
+use Carp                   qw( croak );
+use File::Find             qw( find );
+use JSON                   ();
+use SQL::Abstract          ();
+
 use Koha::Plugin::Xyz::Paulderscheid::CommandPalette;
 
-my $self = Koha::Plugin::Xyz::Paulderscheid::CommandPalette->new;
-
 use base 'Exporter';
+
 our @EXPORT_OK = qw(extract);
 
 our $VERSION = '1.0.0';
+
+my $self = Koha::Plugin::Xyz::Paulderscheid::CommandPalette->new;
 
 sub extract {
     my ($dir) = @_;
@@ -30,9 +29,11 @@ sub extract {
     my @files;
     find(
         sub {
-            return if !-f;                                                      # Skip anything that's not a file
-            return if !/[.]pl\z/smx;                                            # Skip anything that's not a .pl file
-            return if $File::Find::name =~ m{(^|/)installer|errors(/|$)}smx;    # Skip anything that has 'installer' or 'error' in it
+            return if !-f;              # Skip anything that's not a file
+            return if !/[.]pl\z/smx;    # Skip anything that's not a .pl file
+            return
+                if $File::Find::name
+                =~ m{(^|/)installer|errors(/|$)}smx;    # Skip anything that has 'installer' or 'error' in it
 
             # Save the file's path, removing the base directory for the route
             ( my $route = $File::Find::name ) =~ s/\Q$dir\E//smx;

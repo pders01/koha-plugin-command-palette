@@ -1,11 +1,13 @@
-package Koha::Plugin::Xyz::Paulderscheid::CommandPalette::lib::TrieNode;
+package Trie::Node;
 
-use Modern::Perl;
+use strict;
+use warnings;
 use utf8;
 use 5.032;
-use Carp;
 
 use Moo;
+
+use Carp qw( croak );
 
 our $VERSION = '1.0.0';
 
@@ -23,7 +25,7 @@ has 'is_end_of_path' => (
 
 sub add_child {
     my ( $self, $key ) = @_;
-    $self->children->{$key} = Koha::Plugin::Xyz::Paulderscheid::CommandPalette::lib::TrieNode->new;
+    $self->children->{$key} = Trie::Node->new;
     return;
 }
 

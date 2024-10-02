@@ -1,17 +1,19 @@
-package Koha::Plugin::Xyz::Paulderscheid::CommandPalette::lib::Trie;
+package Trie;
 
-use Modern::Perl;
+use strict;
+use warnings;
 use utf8;
-use 5.032;
+use lib q{.};
 
 use Moo;
-use Koha::Plugin::Xyz::Paulderscheid::CommandPalette::lib::TrieNode;
+
+use Trie::Node;
 
 our $VERSION = '1.0.0';
 
 has 'root' => (
     is      => 'ro',
-    default => sub { Koha::Plugin::Xyz::Paulderscheid::CommandPalette::lib::TrieNode->new },
+    default => sub { Trie::Node->new },
 );
 
 sub insert {

@@ -1,14 +1,15 @@
 package Koha::Plugin::Xyz::Paulderscheid::CommandPalette;
 
 ## It's good practice to use Modern::Perl
-use Modern::Perl;
+use strict;
+use warnings;
 use utf8;
-use 5.032;
 use English qw(-no_match_vars);
-use Carp;
 
-use C4::Context;
-use JSON;
+use C4::Context ();
+
+use Carp qw( carp croak );
+use JSON ();
 
 ## Required for all plugins
 use base qw(Koha::Plugins::Base);
@@ -129,7 +130,7 @@ sub install() {
     }
     catch {
         my $error = $_;
-        use Data::Dumper;
+        use Data::Dumper qw( Dumper );
         carp Dumper($error);
         carp "INSTALL ERROR: $error";
 

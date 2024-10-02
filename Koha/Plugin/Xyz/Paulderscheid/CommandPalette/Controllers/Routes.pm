@@ -1,22 +1,26 @@
 package Koha::Plugin::Xyz::Paulderscheid::CommandPalette::Controllers::Routes;
 
-use Modern::Perl;
+use strict;
+use warnings;
 use utf8;
-use 5.032;
 use English qw(-no_match_vars);
+use lib q{../lib};
 
-use Mojo::Base 'Mojolicious::Controller';
-use Try::Tiny;
-use SQL::Abstract;
+use Mojo::Base qw(Mojolicious::Controller);
 
 use C4::Context;
-use Koha::Plugin::Xyz::Paulderscheid::CommandPalette;
-use Koha::Plugin::Xyz::Paulderscheid::CommandPalette::lib::Trie;
-use Koha::Plugin::Xyz::Paulderscheid::CommandPalette::lib::ExtractRoutes qw(extract);
 
-my $self = Koha::Plugin::Xyz::Paulderscheid::CommandPalette->new;
+use SQL::Abstract ();
+use Try::Tiny     qw( catch try );
+
+use Trie;
+use Local::ExtractRoutes qw(extract);
+
+use Koha::Plugin::Xyz::Paulderscheid::CommandPalette;
 
 our $VERSION = '1.0.0';
+
+my $self = Koha::Plugin::Xyz::Paulderscheid::CommandPalette->new;
 
 sub list {
     my $c = shift->openapi->valid_input or return;
