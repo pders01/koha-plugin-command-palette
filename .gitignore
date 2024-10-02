@@ -1,5 +1,4 @@
 local/
-Koha/Plugin/
 templates/Koha/Plugin/
 
 .env
