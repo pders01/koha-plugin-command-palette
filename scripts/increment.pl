@@ -9,7 +9,7 @@ use lib './lib';
 use Carp         qw( croak );
 use DateTime     ();
 use Getopt::Long qw( GetOptions );
-use JSON         qw( decode_json );
+use JSON         qw( decode_json encode_json );
 use List::Util   qw( none );
 use Path::Tiny   qw( path );
 use Readonly     qw( Readonly );
